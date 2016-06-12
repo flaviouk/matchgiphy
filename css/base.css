@@ -1,0 +1,21 @@
+/*NAVBAR*/
+.brand-img{
+	height: 45px;
+}
+
+.navbar-form{
+	margin-top: 0;
+	display: inline-block;
+}
+
+.btn-default{
+	margin-left: 30px;
+}
+
+.auth-btns{
+	padding-right: 5%;
+}
+
+.form-control{
+	color: white;
+}
