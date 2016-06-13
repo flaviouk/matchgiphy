@@ -7,9 +7,9 @@
             <div class="form-group">
                 <input type="text" class="form-control" ng-model="search" placeholder="Game Topic">
             </div>
-            <button type="submit" class="btn btn-default" ng-click="startGame(search)">Start Game</button>
+            <button type="submit" class="btn btn-default start" ng-click="startGame(search)">Start Game</button>
         </form>
-        <a class="navbar-right auth-btns" href="#">Logout</a>
-        <a class="navbar-right auth-btns" href="#">Login</a>
+        <a class="navbar-right auth-btns" ng-if="isLogged" ng-click="logout()">Logout</a>
+        <a class="navbar-right auth-btns" ng-if="!isLogged" ng-click="login()">Login</a>
     </div>
 </nav>

@@ -7,6 +7,11 @@ angular.module( 'MatchGiphy', [ 'ui.router', 'firebase' ] )
 
 })
 
+.constant('firebaseRef', {
+	base: new Firebase('https://matchgiphy.firebaseio.com'),
+	ranking: 'https://matchgiphy.firebaseio.com/ranking/'
+})
+
 
 .config( [ '$stateProvider', '$urlRouterProvider', function( $stateProvider, $urlRouterProvider ) {
 
@@ -16,8 +21,7 @@ angular.module( 'MatchGiphy', [ 'ui.router', 'firebase' ] )
 	$stateProvider
 		.state( 'home', {
 			url: '/',
-			templateUrl: './views/home/home-view.html',
-			controller: 'homeCtrl'
+			templateUrl: './views/home/home-view.html'
 		} )
 
 } ] );

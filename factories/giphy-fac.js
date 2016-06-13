@@ -1,6 +1,6 @@
 angular.module( 'MatchGiphy' )
 
-.factory( 'giphyFactory', function( $state, giphyRef, $timeout, $http ) {
+.factory( 'giphyFactory', function( giphyRef, $http ) {
 
 	function getMyGiphys( search ) {
 		return $http({

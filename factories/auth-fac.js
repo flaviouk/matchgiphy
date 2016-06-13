@@ -1,9 +1,8 @@
 angular.module( 'MatchGiphy' )
 
-.factory( 'authFactory', function( $state, firebaseRef, $timeout ) {
+.factory( 'authFactory', function( firebaseRef, $timeout ) {
 
-	var currentUser;
-
+	var isLogged;
 
 	// Login with facebook
 	function login() {
@@ -14,15 +13,12 @@ angular.module( 'MatchGiphy' )
 					Materialize.toast( 'Whoops, something went wrong. Try again later!', 3000 );
 				}, 500 );
 				console.log( error );
+				return false;
 			} else {
-
-				currentUser = authData;
-				// currentUserTasks = new Firebase(firebaseRef.tasks + '/' + currentUser.uid);
 				$timeout( function() {
-					Materialize.toast( 'Welcome to intero, ' + authData.facebook.displayName + '!', 3000 );
+					Materialize.toast( 'Welcome, ' + authData.facebook.displayName + '!', 3000 );
 				}, 500 );
-				$state.go( 'tasks' );
-
+				isLogged = true;
 			}
 		} )
 	}
@@ -30,29 +26,14 @@ angular.module( 'MatchGiphy' )
 	// Logout
 	function logout() {
 		firebaseRef.base.unauth();
-		$timeout( function() {
-			Materialize.toast( 'Bye, see you soon!', 3000 );
-		}, 500 );
-		$state.go( 'home' );
+		sLogged = false;
 	}
-
-
-	function checkAuth() {
-		firebaseRef.base.onAuth( function( authData ) {
-			if ( authData ) {
-				currentUser = authData;
-				// currentUserTasks = new Firebase(firebaseRef.tasks + '/' + currentUser.uid);
-				// $state.go('tasks');
-			} else {
-				$state.go( 'home' );
-			}
-		} )
-	}
-	checkAuth();
 
 	return {
 		login: login,
 		logout: logout,
-		currentUser: currentUser
+		getLogStatus: function () {
+			return isLogged
+		}
 	}
 } );

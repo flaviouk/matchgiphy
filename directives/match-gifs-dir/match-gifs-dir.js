@@ -1,6 +1,6 @@
 angular.module( 'MatchGiphy' )
 
-.directive( 'matchGifs', function( giphyFactory, $timeout ) {
+.directive( 'matchGifs', function( giphyFactory, $timeout, rankFactory ) {
 	return {
 		templateUrl: './directives/match-gifs-dir/match-gifs-dir.html',
 		link: function( scope, elem, attr ) {
@@ -14,7 +14,9 @@ angular.module( 'MatchGiphy' )
 				giphyFactory.getMyGiphys( search ).then( function( giphys ) {
 					allGiphys = [];
 					for ( var key in giphys ) {
-						allGiphys.push( giphys[ key ].images.fixed_height.url );
+						if ( allGiphys.length < 10 ) {
+							allGiphys.push( giphys[ key ].images.fixed_height.url );
+						}
 					}
 					randomizeGiphys( allGiphys );
 				} )
@@ -36,14 +38,19 @@ angular.module( 'MatchGiphy' )
 			}
 
 			function randomizeGiphys( giphys ) {
-				var arrayOne = shuffle( giphys );
-				var arrayTwo = shuffle( giphys );
-				for ( var i = 0; i < arrayOne.length; i++ ) {
-					scope.giphys.push( arrayOne[ i ] );
+				var one = shuffle( giphys );
+				var two = shuffle( giphys);
+				console.log(two);
+
+				console.log(one);
+				console.log(giphys);
+				for ( var i = 0; i < one.length; i++ ) {
+					scope.giphys.push( one[ i ] );
 				}
-				for ( var i = 0; i < arrayTwo.length; i++ ) {
-					scope.giphys.push( arrayTwo[ i ] );
+				for ( var k = 0; k < two.length; k++ ) {
+					scope.giphys.push( two[ k ] );
 				}
+				console.log(scope.giphys);
 			}
 
 			function toggleCards() {
@@ -64,9 +71,9 @@ angular.module( 'MatchGiphy' )
 
 						numCardsVisible++;
 
-						if(toggleVisibility( giphyImg, giphyCard )){
+						if ( toggleVisibility( giphyImg, giphyCard ) ) {
 							totalVisible--;
-						}else{
+						} else {
 							totalVisible++;
 						};
 
@@ -77,18 +84,16 @@ angular.module( 'MatchGiphy' )
 									numCardsVisible--;
 									totalVisible--;
 									cards.splice( myCardIndex, 1 );
-								}, 2000 );
+								}, 1500 );
 							} else {
 								numCardsVisible = 0;
 								cards.length = 0;
 							}
 						}
 					}
-
-					if(totalVisible === scope.giphys.length){
-						console.log('NICE');
+					if ( totalVisible === scope.giphys.length ) {
+						rankFactory.addToMyRank(totalVisible/2);
 					}
-
 				} )
 			}
 
@@ -100,7 +105,6 @@ angular.module( 'MatchGiphy' )
 			}
 
 			function toggleVisibility( first, second ) {
-				console.log('checked');
 				if ( first.css( 'visibility' ) == 'visible' ) {
 					first.css( 'visibility', 'hidden' );
 					second.css( 'visibility', 'visible' );
