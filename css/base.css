@@ -19,3 +19,18 @@
 .form-control{
 	color: white;
 }
+
+
+.giphy-card{
+	display: inline-block;
+	margin: auto;
+	background: url('http://texas.thefootballbrainiacs.com/wp-content/uploads/2016/01/X.jpg');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center; 
+}
+
+.giphy-img{
+	height: 100px;
+	visibility: hidden;
+}

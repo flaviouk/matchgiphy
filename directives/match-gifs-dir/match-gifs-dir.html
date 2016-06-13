@@ -1,5 +1,7 @@
 <div class="row">
-    <!-- <div class="card-image"> -->
-    <img ng-repeat="giphy in giphys track by $index" class="card-image" ng-src="{{giphy}}" alt="giphy">
-    <!-- </div> -->
+	<a ng-repeat="giphy in giphys track by $index" class="giphy-a">
+		<div  class="giphy-card">
+	    	<img class="giphy-img" ng-src="{{giphy}}" alt="giphy">
+	    </div>
+	</a>
 </div>
