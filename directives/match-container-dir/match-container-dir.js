@@ -10,22 +10,20 @@ angular.module( 'MatchGiphy' )
 			function sortMe( array ) {
 				return array.sort( function( a, b ) {
 					if ( a.score > b.score ) {
-						console.log(a.score);
 						return -1;
 					}
 					if ( a.score < b.score ) {
-						console.log(a.score);
 						return 1;
 					}
 					// a must be equal to b
 					return 0;
 				} )
 			}
-			ranking.$on(function () {
-				ranking.$loaded(function (result) {
-				scope.ranking = sortMe(ranking);
-			})
-			})
+			ranking.$watch( function() {
+				ranking.$loaded( function( result ) {
+					scope.ranking = sortMe( ranking );
+				} )
+			} )
 		}
 	}
 } );

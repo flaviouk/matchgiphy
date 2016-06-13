@@ -4,6 +4,7 @@
 		<match-gifs></match-gifs>
 	</div>
 	<div class="col-md-2">
+		<h4>Ranking</h4>
 		<ul>
 			<li ng-repeat="rank in ranking |  filter: -score | limitTo : 10: 0"><b>{{rank.score}} - </b>{{rank.name}}</li>
 		</ul>

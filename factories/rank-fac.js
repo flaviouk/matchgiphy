@@ -19,7 +19,6 @@ angular.module( 'MatchGiphy' )
 				if ( currentUser.facebook.id === response[ i ].id ) {
 					ranking[i].score += num;
 					ranking.$save(i).then(function (result) {
-						console.log(result);
 					})
 				}
 			}
