@@ -24,7 +24,8 @@ angular.module( 'MatchGiphy' )
 				toggleCards();
 			}
 
-			function shuffle( array ) {
+			function shuffle( oldArray ) {
+				var array = oldArray.slice();
 				var currentIndex = array.length,
 					temporaryValue, randomIndex;
 				while ( 0 !== currentIndex ) {
@@ -39,18 +40,13 @@ angular.module( 'MatchGiphy' )
 
 			function randomizeGiphys( giphys ) {
 				var one = shuffle( giphys );
-				var two = shuffle( giphys);
-				console.log(two);
-
-				console.log(one);
-				console.log(giphys);
+				var two = shuffle( giphys );
 				for ( var i = 0; i < one.length; i++ ) {
 					scope.giphys.push( one[ i ] );
 				}
 				for ( var k = 0; k < two.length; k++ ) {
 					scope.giphys.push( two[ k ] );
 				}
-				console.log(scope.giphys);
 			}
 
 			function toggleCards() {
@@ -92,7 +88,7 @@ angular.module( 'MatchGiphy' )
 						}
 					}
 					if ( totalVisible === scope.giphys.length ) {
-						rankFactory.addToMyRank(totalVisible/2);
+						rankFactory.addToMyRank( totalVisible / 2 );
 					}
 				} )
 			}

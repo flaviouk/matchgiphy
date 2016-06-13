@@ -5,7 +5,7 @@
 	</div>
 	<div class="col-md-2">
 		<ul>
-			<li ng-repeat="rank in ranking"><b>{{rank.points}} - </b>{{rank.name}}</li>
+			<li ng-repeat="rank in ranking |  filter: -score | limitTo : 10: 0"><b>{{rank.score}} - </b>{{rank.name}}</li>
 		</ul>
 	</div>
 </div>

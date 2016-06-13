@@ -4,23 +4,28 @@ angular.module( 'MatchGiphy' )
 	return {
 		templateUrl: './directives/match-container-dir/match-container-dir.html',
 		link: function( scope, elem, attr ) {
+
 			var ranking = $firebaseArray( new Firebase( firebaseRef.ranking ) );
-			scope.ranking = ranking;
-			for ( var key in ranking ) {
-				if ( typeof ranking[ key ] !== 'function' ) {
-					// for ( var prop in ranking[ key ] ) {
-					// 	console.log( ranking[ key ].name, 'NAME' );
-					// 	$scope.ranking[ prop ].name = ranking[ key ].name;
-					// 	$scope.rankin
-					// 	g[ prop ].score += ranking[ key ].score;
-					// }
-					console.log(ranking[key]);
-				}
 
+			function sortMe( array ) {
+				return array.sort( function( a, b ) {
+					if ( a.score > b.score ) {
+						console.log(a.score);
+						return -1;
+					}
+					if ( a.score < b.score ) {
+						console.log(a.score);
+						return 1;
+					}
+					// a must be equal to b
+					return 0;
+				} )
 			}
-			console.log( ranking, 'RANKING' );
-			console.log( scope.ranking, 'SCOPE' );
-
+			ranking.$on(function () {
+				ranking.$loaded(function (result) {
+				scope.ranking = sortMe(ranking);
+			})
+			})
 		}
 	}
 } );

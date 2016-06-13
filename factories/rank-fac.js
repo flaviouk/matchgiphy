@@ -13,13 +13,18 @@ angular.module( 'MatchGiphy' )
 	ref.onAuth( authDataCallback );
 
 	function addToMyRank( num ) {
-		ranking = $firebaseArray( new Firebase( firebaseRef.ranking + '/' + currentUser.facebook.id) );
-		ranking.$add({
-			score: num,
-			name: currentUser.facebook.displayName
-		})
+		ranking = $firebaseArray( new Firebase( firebaseRef.ranking ) );
+		ranking.$loaded( function( response ) {
+			for ( var i = 0; i < response.length; i++ ) {
+				if ( currentUser.facebook.id === response[ i ].id ) {
+					ranking[i].score += num;
+					ranking.$save(i).then(function (result) {
+						console.log(result);
+					})
+				}
+			}
+		} )
 	}
-	// addToMyRank(2);
 
 	return {
 		addToMyRank: addToMyRank
